@@ -72,3 +72,21 @@ INSERT INTO uriage11 VALUE(1007, 1200000, 'ツナ', 1000000, '大根');
 INSERT INTO uriage11 VALUE(1008, 1700000, '野菜', 1700000, 'がんも');
 INSERT INTO uriage11 VALUE(1009, 1000000, 'ツナ', 1000000, '卵');
 INSERT INTO uriage11 VALUE(1010, 1300000, 'ツナ', 1300000, 'こんにゃく');
+
+# (2)サンドイッチの売り上げの行数，最高値，平均値，最小値をもとめ表示しなさい．
+SELECT COUNT(サンドイッチの売り上げ) AS 行数, MAX(サンドイッチの売り上げ) AS 最高値, AVG(サンドイッチの売り上げ) AS 平均値, MIN(サンドイッチの売り上げ) AS 最小 FROM uriage11;
+
+# (3）売れ筋サンドイッチの種類毎の平均をもとめ，売れ筋サンドイッチの種類毎にその平均を表示しなさい
+SELECT 売れ筋サンドイッチ AS サンド種類, AVG(サンドイッチの売り上げ) AS 平均売上 FROM uriage11 GROUP BY 売れ筋サンドイッチ;
+
+# (4)店名，県名，おでんの売り上げ，売れ筋おでんを表示しなさい．
+SELECT conv.店名,conv.県名, uriage11.おでんの売り上げ, uriage11.売れ筋おでん FROM conv JOIN uriage11 ON conv.UID = uriage11.ID;
+
+# (5)卵が売れ筋サンドイッチの ID と店名と県名とサンドイッチの売り上げを表示しなさい
+SELECT uriage11.ID, conv.店名, conv.県名, uriage11.サンドイッチの売り上げ FROM uriage11 JOIN conv ON uriage11.ID = conv.UID WHERE uriage11.売れ筋サンドイッチ = '卵';
+
+# (6)県別の駅からの距離の平均を求め表示しなさい．
+SELECT 県名, AVG(駅からの距離) AS 平均距離 FROM conv GROUP BY 県名;
+
+# (7)卵が売れ筋おでんの店名と県名と広さとおでんの売り上げを表示しなさい．
+SELECT conv.店名, conv.県名, conv.広さ, uriage11.おでんの売り上げ FROM conv JOIN uriage11 ON conv.UID = uriage11.ID WHERE uriage11.売れ筋おでん = '卵';
